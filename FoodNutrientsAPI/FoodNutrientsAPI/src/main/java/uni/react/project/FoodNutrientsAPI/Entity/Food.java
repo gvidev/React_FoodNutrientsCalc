@@ -23,11 +23,14 @@ public class Food extends BaseEntity {
     @Column(length = 80, nullable = false, unique = true)
     private String description;
     @Column(nullable = false)
+    private Integer calories;
+    @Column(nullable = false)
     private Float fats;
     @Column(nullable = false)
     private Float carbohydrates;
     @Column(nullable = false)
     private Float proteins;
+
 
 
 }
