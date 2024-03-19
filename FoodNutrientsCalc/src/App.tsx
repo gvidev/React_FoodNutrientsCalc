@@ -8,7 +8,7 @@ function App() {
 
   const handleButtonClick = () => {
     setCount(count + 1);
-    setTableColor("red");
+    setTableColor("green");
   };
 
   return (
