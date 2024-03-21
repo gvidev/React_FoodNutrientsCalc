@@ -1,9 +1,7 @@
 import React from "react";
 
 const SearchTable = () => {
-  const hasEffect = () => {
-    document.getElementById("body");
-  };
+  const hasEffect = () => {};
   return (
     <>
       <table className={"ui large selectable  table"}>
