@@ -1,34 +1,23 @@
 import { useState } from "react";
 import "./App.css";
-import Table from "./components/Table";
+import SelectedFoodTable from "./components/SelectedFoodsTable";
+import SearchTable from "./components/SearchTable";
+import AddFoodButton from "./components/AddFoodButton";
 
 function App() {
   const [count, setCount] = useState(0);
-  const [tableColor, setTableColor] = useState("black");
 
   const handleButtonClick = () => {
     setCount(count + 1);
-    setTableColor("green");
   };
 
   return (
     <>
-      <div className="ui grid">
-        <div className="four wide columns">
-          <div className="ui icon input left">
-            <input type="text" placeholder="Search..."></input>
-            <i className="circular search link icon"></i>
-          </div>
-        </div>
-
-        <div className="two wide columns">
-          <div className="ui icon add right">
-            <i className="circular add icon"></i>
-          </div>
-        </div>
-      </div>
-
-      <Table color={"" + tableColor + ""}></Table>
+      <SelectedFoodTable></SelectedFoodTable>
+      <br></br>
+      <br></br>
+      <AddFoodButton></AddFoodButton>
+      <SearchTable></SearchTable>
 
       <div className="card">
         <button onClick={handleButtonClick}>count is {count}</button>
