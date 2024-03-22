@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 interface SearchTableProps {
+  sendDataToParent: any;
   searchedFoods: [
     {
       id: number;
@@ -11,7 +14,12 @@ interface SearchTableProps {
   ];
 }
 
-const SearchTable = ({ searchedFoods }: SearchTableProps) => {
+const SearchTable = ({ searchedFoods, sendDataToParent }: SearchTableProps) => {
+  const [data, setData] = useState(0);
+
+  const handleItemClick = (id: number) => {
+    sendDataToParent(data);
+  };
   return (
     <>
       <table className={"ui large selectable  table"}>
@@ -40,7 +48,7 @@ const SearchTable = ({ searchedFoods }: SearchTableProps) => {
         </thead>
         <tbody>
           {searchedFoods.map((food, id) => (
-            <tr key={id}>
+            <tr key={id} onClick={() => setData(id)}>
               <td>{food.desc}</td>
               <td className="right aligned">{food.kcal}</td>
               <td className="right aligned">{food.protein}</td>

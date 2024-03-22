@@ -7,6 +7,13 @@ import NewFoodModal from "./components/newFoodModal";
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [dataFromChild, setDataFromChild] = useState(0);
+
+  function handleDataFromChild(data: number) {
+    setDataFromChild(data);
+    let element = findElementById(data);
+    setSelectedFoods([...selectedFoods, element]);
+  }
 
   const selectFoodsArray = [
     {
@@ -53,11 +60,25 @@ function App() {
   };
 
   const findElementById = (id: number) => {
+    let elm = {
+      id: 0,
+      desc: "",
+      kcal: 0,
+      protein: 0,
+      fat: 0,
+      carbs: 0,
+    };
     searchedFoods.map((food) => {
       if (food.id == id) {
-        return food;
+        elm.id = food.id;
+        elm.desc = food.desc;
+        elm.kcal = food.kcal;
+        elm.protein = food.protein;
+        elm.fat = food.fat;
+        elm.carbs = food.carbs;
       }
     });
+    return elm;
   };
 
   return (
@@ -67,7 +88,10 @@ function App() {
       <br></br>
       <AddFoodButton onClicked={handleAddFoodButton}></AddFoodButton>
       {isFormOpen && <NewFoodModal></NewFoodModal>}
-      <SearchTable searchedFoods={searchedFoods}></SearchTable>
+      <SearchTable
+        searchedFoods={searchedFoods}
+        sendDataToParent={handleDataFromChild}
+      ></SearchTable>
       <div className="card"></div>
     </>
   );
