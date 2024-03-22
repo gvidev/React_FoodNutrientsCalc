@@ -1,7 +1,17 @@
-import React from "react";
+interface SearchTableProps {
+  searchedFoods: [
+    {
+      id: number;
+      desc: String;
+      kcal: number;
+      protein: number;
+      fat: number;
+      carbs: number;
+    }
+  ];
+}
 
-const SearchTable = () => {
-  const hasEffect = () => {};
+const SearchTable = ({ searchedFoods }: SearchTableProps) => {
   return (
     <>
       <table className={"ui large selectable  table"}>
@@ -29,13 +39,15 @@ const SearchTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr onClick={hasEffect}>
-            <td>Celery</td>
-            <td className="right aligned">0</td>
-            <td className="right aligned">0</td>
-            <td className="right aligned">0</td>
-            <td className="right aligned">0</td>
-          </tr>
+          {searchedFoods.map((food, id) => (
+            <tr key={id}>
+              <td>{food.desc}</td>
+              <td className="right aligned">{food.kcal}</td>
+              <td className="right aligned">{food.protein}</td>
+              <td className="right aligned">{food.fat}</td>
+              <td className="right aligned">{food.carbs}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

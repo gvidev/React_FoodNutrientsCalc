@@ -6,26 +6,69 @@ import AddFoodButton from "./components/AddFoodButton";
 import NewFoodModal from "./components/newFoodModal";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const handleButtonClick = () => {
-    setCount(count + 1);
+  const selectFoodsArray = [
+    {
+      id: 1,
+      desc: "String",
+      kcal: 1,
+      protein: 1,
+      fat: 50,
+      carbs: 1,
+    },
+    {
+      id: 1,
+      desc: "String",
+      kcal: 1,
+      protein: 1,
+      fat: 32131,
+      carbs: 1,
+    },
+  ];
+
+  const [selectedFoods, setSelectedFoods] = useState(selectFoodsArray);
+
+  const [searchedFoods, setSearchedFoods] = useState([
+    {
+      id: 1,
+      desc: "String",
+      kcal: 1,
+      protein: 1,
+      fat: 50,
+      carbs: 1,
+    },
+    {
+      id: 1,
+      desc: "String",
+      kcal: 1,
+      protein: 1,
+      fat: 32131,
+      carbs: 1,
+    },
+  ]);
+
+  const handleAddFoodButton = () => {
+    setIsFormOpen(!isFormOpen);
+  };
+
+  const findElementById = (id: number) => {
+    searchedFoods.map((food) => {
+      if (food.id == id) {
+        return food;
+      }
+    });
   };
 
   return (
     <>
-      <SelectedFoodTable></SelectedFoodTable>
+      <SelectedFoodTable selectedFoods={selectedFoods}></SelectedFoodTable>
       <br></br>
       <br></br>
-      <AddFoodButton></AddFoodButton>
-      <NewFoodModal></NewFoodModal>
-
-      <SearchTable></SearchTable>
-
-      <div className="card">
-        <button onClick={handleButtonClick}>count is {count}</button>
-      </div>
+      <AddFoodButton onClicked={handleAddFoodButton}></AddFoodButton>
+      {isFormOpen && <NewFoodModal></NewFoodModal>}
+      <SearchTable searchedFoods={searchedFoods}></SearchTable>
+      <div className="card"></div>
     </>
   );
 }

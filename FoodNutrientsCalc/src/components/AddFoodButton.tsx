@@ -1,9 +1,11 @@
-import React from "react";
+interface AddButtonProps {
+  onClicked: () => void;
+}
 
-const AddFoodButton = () => {
+const AddFoodButton = ({ onClicked }: AddButtonProps) => {
   return (
     <>
-      <div className="ui top attached button">
+      <div className="ui top attached button" onClick={onClicked}>
         <div className="ui animated fade">
           <div>Add new food</div>
         </div>
