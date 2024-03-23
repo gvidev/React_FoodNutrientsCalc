@@ -12,6 +12,7 @@ import uni.react.project.FoodNutrientsAPI.Entity.Food;
 import uni.react.project.FoodNutrientsAPI.Repository.FoodRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FoodService {
@@ -23,9 +24,22 @@ public class FoodService {
 
     public List<Food> getAll(){return foodRepository.findAll();}
 
+    public List<Food> getByQuery(String query){
+       return foodRepository.findTop5ByDescriptionContainingIgnoreCase(query);
+    }
+
 
     public boolean checkIfExist(String foodName){
-       // foodRepository.findByDescription()
+        Optional<Food> food = foodRepository.findByDescription(foodName);
+        return food.isPresent();
+    }
+
+    public boolean addFood(Food food){
+        boolean check = checkIfExist(food.getDescription());
+        if(!check){
+            foodRepository.save(food);
+            return true;
+        }
         return false;
     }
 

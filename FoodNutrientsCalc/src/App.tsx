@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import SelectedFoodTable from "./components/SelectedFoodsTable";
 import SearchTable from "./components/SearchTable";
@@ -14,6 +14,16 @@ function App() {
     let element = findElementById(data);
     setSelectedFoods([...selectedFoods, element]);
   }
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/foods")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
 
   const selectFoodsArray = [
     {
