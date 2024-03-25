@@ -1,23 +1,24 @@
 import { useState } from "react";
 
 interface SearchTableProps {
-  sendDataToParent: any;
+  sendDataToParent?: any;
   searchedFoods: [
     {
       id: number;
-      desc: String;
-      kcal: number;
-      protein: number;
-      fat: number;
-      carbs: number;
+      description: String;
+      calories: number;
+      proteins: number;
+      fats: number;
+      carbohydrates: number;
     }
   ];
 }
 
 const SearchTable = ({ searchedFoods, sendDataToParent }: SearchTableProps) => {
-  const [data, setData] = useState(0);
+  const [data, setData] = useState(Object);
 
-  const handleItemClick = (id: number) => {
+  const handleItemClick = (food: object) => {
+    setData(food);
     sendDataToParent(data);
   };
   return (
@@ -47,13 +48,13 @@ const SearchTable = ({ searchedFoods, sendDataToParent }: SearchTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {searchedFoods.map((food, id) => (
-            <tr key={id} onClick={() => setData(id)}>
-              <td>{food.desc}</td>
-              <td className="right aligned">{food.kcal}</td>
-              <td className="right aligned">{food.protein}</td>
-              <td className="right aligned">{food.fat}</td>
-              <td className="right aligned">{food.carbs}</td>
+          {searchedFoods.map((food) => (
+            <tr key={food.id} onClick={() => handleItemClick(food)}>
+              <td>{food.description}</td>
+              <td className="right aligned">{food.calories}</td>
+              <td className="right aligned">{food.proteins}</td>
+              <td className="right aligned">{food.fats}</td>
+              <td className="right aligned">{food.carbohydrates}</td>
             </tr>
           ))}
         </tbody>
