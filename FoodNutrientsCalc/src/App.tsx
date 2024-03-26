@@ -2,16 +2,21 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import SelectedFoodTable from "./components/SelectedFoodsTable";
 import SearchTable from "./components/SearchTable";
-import AddFoodButton from "./components/AddFoodButton";
-import NewFoodModal from "./components/newFoodModal";
 import axios from "axios";
 
 function App() {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  // const [isFormOpen, setIsFormOpen] = useState(false);
+  const foodElement = {
+    id: Number,
+    description: String,
+    calories: Number,
+    proteins: Number,
+    fats: Number,
+    carbohydrates: Number,
+  };
 
-  const [selectedFoods, setSelectedFoods] = useState([]);
-
-  const [searchedFoods, setSearchedFoods] = useState([]);
+  const [selectedFoods, setSelectedFoods] = useState(Array<typeof foodElement>);
+  const [searchedFoods, setSearchedFoods] = useState(Array<typeof foodElement>);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,14 +33,23 @@ function App() {
     fetchData();
   }, []);
 
-  const handleAddFoodButton = () => {
-    setIsFormOpen(!isFormOpen);
-  };
+  // const handleAddFoodButton = () => {
+  //   setIsFormOpen(!isFormOpen);
+  // };
 
-  const [dataFromChild, setDataFromChild] = useState("");
+  function handleDerivedFood(data: typeof foodElement) {
+    let isAlreadyAdded = false;
+    selectedFoods.map((food) => {
+      if (data.id == food.id) {
+        isAlreadyAdded = true;
+      }
+    });
 
-  function handleDataFromChild(data: any) {
-    console.log(data);
+    if (!isAlreadyAdded) {
+      setSelectedFoods([...selectedFoods, data]);
+    } else {
+      console.log("This element is already added!");
+    }
   }
 
   return (
@@ -43,11 +57,11 @@ function App() {
       <SelectedFoodTable selectedFoods={selectedFoods}></SelectedFoodTable>
       <br></br>
       <br></br>
-      <AddFoodButton onClicked={handleAddFoodButton}></AddFoodButton>
-      {isFormOpen && <NewFoodModal></NewFoodModal>}
+      {/* <AddFoodButton onClicked={handleAddFoodButton}></AddFoodButton>
+      {isFormOpen && <NewFoodModal></NewFoodModal>} */}
       <SearchTable
         searchedFoods={searchedFoods}
-        sendDataToParent={handleDataFromChild}
+        getClickedFood={handleDerivedFood}
       ></SearchTable>
       <div className="card"></div>
     </>

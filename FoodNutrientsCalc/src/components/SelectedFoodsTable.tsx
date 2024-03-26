@@ -1,28 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import TableHeader from "./TableHeader";
 
 interface SelectedFoodsProps {
   selectedFoods: [
     {
       id: number;
-      desc: String;
-      kcal: number;
-      protein: number;
-      fat: number;
-      carbs: number;
+      description: String;
+      calories: number;
+      proteins: number;
+      fats: number;
+      carbohydrates: number;
     }
   ];
-  isTableChanged: boolean;
 }
 
-const SelectedFoodTable = ({
-  selectedFoods,
-}: // isTableChanged,
-SelectedFoodsProps) => {
+const SelectedFoodTable = ({ selectedFoods }: SelectedFoodsProps) => {
   const [color, setColor] = useState("black");
-  const [totaKcal, setTotalKcal] = useState(0);
-  const [totalProtein, setTotalProtein] = useState(0);
-  const [totalFat, setTotalFat] = useState(0);
-  const [totalCarbs, setTotalCarbs] = useState(0);
+  const [totaKcal, setTotalKcal] = useState(Number);
+  const [totalProtein, setTotalProtein] = useState(Number);
+  const [totalFat, setTotalFat] = useState(Number);
+  const [totalCarbs, setTotalCarbs] = useState(Number);
 
   const handleColor = (totalFat: number, count: number) => {
     let temp = totalFat / (count * 100);
@@ -35,7 +32,11 @@ SelectedFoodsProps) => {
     }
   };
 
-  const handleChanges = () => {
+  const roundNumbers2Decimals = (x: number) => {
+    return Math.round(x * 100) / 100;
+  };
+
+  const calculateTotals = () => {
     let totalK = 0;
     let totalP = 0;
     let totalF = 0;
@@ -43,21 +44,25 @@ SelectedFoodsProps) => {
     let count = 0;
     selectedFoods.map((food) => {
       count++;
-      totalK += food.kcal;
-      totalP += food.protein;
-      totalF += food.fat;
-      totalC += food.carbs;
+      totalK += food.calories;
+      totalP += food.proteins;
+      totalF += food.fats;
+      totalC += food.carbohydrates;
     });
     handleColor(totalF, count);
-    setTotalKcal(totalK);
-    setTotalProtein(totalP);
-    setTotalFat(totalF);
-    setTotalCarbs(totalC);
+    setTotalKcal(roundNumbers2Decimals(totalK));
+    setTotalProtein(roundNumbers2Decimals(totalP));
+    setTotalFat(roundNumbers2Decimals(totalF));
+    setTotalCarbs(roundNumbers2Decimals(totalC));
   };
+
+  //calculate on every render
+  useEffect(() => {
+    calculateTotals();
+  });
 
   return (
     <>
-      {/* {isTableChanged && handleChanges} */}
       <table className={"ui large " + color + " table"}>
         <thead>
           <tr>
@@ -70,23 +75,15 @@ SelectedFoodsProps) => {
             <th></th>
           </tr>
         </thead>
-        <thead>
-          <tr>
-            <th className="ten wide">Description</th>
-            <th>{"Kcal"}</th>
-            <th>{"Protein (g)"}</th>
-            <th>{"Fat (g)"}</th>
-            <th>{"Carbs (g)"}</th>
-          </tr>
-        </thead>
+        <TableHeader></TableHeader>
         <tbody>
-          {selectedFoods.map((food, id) => (
-            <tr key={id} onClick={handleChanges}>
-              <td>{food.desc}</td>
-              <td className="right aligned">{food.kcal}</td>
-              <td className="right aligned">{food.protein}</td>
-              <td className="right aligned">{food.fat}</td>
-              <td className="right aligned">{food.carbs}</td>
+          {selectedFoods.map((food) => (
+            <tr key={food.id}>
+              <td>{food.description}</td>
+              <td className="right aligned">{food.calories}</td>
+              <td className="right aligned">{food.proteins}</td>
+              <td className="right aligned">{food.fats}</td>
+              <td className="right aligned">{food.carbohydrates}</td>
             </tr>
           ))}
         </tbody>
