@@ -8,17 +8,10 @@ import axios from "axios";
 
 function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [dataFromChild, setDataFromChild] = useState(Object);
 
   const [selectedFoods, setSelectedFoods] = useState([]);
 
   const [searchedFoods, setSearchedFoods] = useState([]);
-
-  function handleDataFromChild(data: object) {
-    setDataFromChild(data);
-
-    console.log(dataFromChild);
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +31,12 @@ function App() {
   const handleAddFoodButton = () => {
     setIsFormOpen(!isFormOpen);
   };
+
+  const [dataFromChild, setDataFromChild] = useState("");
+
+  function handleDataFromChild(data: any) {
+    console.log(data);
+  }
 
   return (
     <>
