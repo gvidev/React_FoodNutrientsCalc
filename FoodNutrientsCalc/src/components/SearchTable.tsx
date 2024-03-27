@@ -1,4 +1,6 @@
 import TableHeader from "./TableHeader";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 interface SearchTableProps {
   searchedFoods: [
@@ -11,10 +13,42 @@ interface SearchTableProps {
       carbohydrates: number;
     }
   ];
+
+  foodElement: {
+    id: number;
+    description: String;
+    calories: Number;
+    proteins: Number;
+    fats: Number;
+    carbohydrates: Number;
+  };
+
   getClickedFood: (data: Object) => void;
 }
 
-const SearchTable = ({ searchedFoods, getClickedFood }: SearchTableProps) => {
+const SearchTable = ({ getClickedFood, foodElement }: SearchTableProps) => {
+  const [query, setQuery] = useState(String);
+  const [searchedFoods, setSearchedFoods] = useState(Array<typeof foodElement>);
+
+  const handleInputChange = (evt: any) => {
+    console.log(evt.target.value);
+    setQuery(evt.target.value);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: response } = await axios.get(
+          "http://localhost:8080/api/foods/search?query=" + query + ""
+        );
+        setSearchedFoods(response);
+      } catch (error: any) {
+        console.error(error.message);
+      }
+    };
+    fetchData();
+  }, [query]);
+
   return (
     <>
       <table className={"ui large selectable  table"}>
@@ -22,7 +56,12 @@ const SearchTable = ({ searchedFoods, getClickedFood }: SearchTableProps) => {
           <tr>
             <th>
               <div className="ui icon input left">
-                <input type="text" placeholder="Search foods..."></input>
+                <input
+                  type="text"
+                  placeholder="Search foods..."
+                  value={query}
+                  onChange={handleInputChange}
+                ></input>
                 <i className="circular search link icon"></i>
               </div>
             </th>

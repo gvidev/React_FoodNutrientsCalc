@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/foods")
-@CrossOrigin("*")
+@CrossOrigin(allowedHeaders ="*",origins = "*")
 public class FoodController {
 
     private final FoodService foodService;
@@ -35,7 +35,7 @@ public class FoodController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         List<Food> ff =  foodService.getByQuery(query);
-        return new ResponseEntity<>(foodService.getByQuery(query),HttpStatus.OK);
+        return new ResponseEntity<>(ff,HttpStatus.OK);
     }
 
     @PostMapping()

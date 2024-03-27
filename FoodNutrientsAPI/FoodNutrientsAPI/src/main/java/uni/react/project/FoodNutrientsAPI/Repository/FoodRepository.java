@@ -16,6 +16,6 @@ import java.util.Optional;
 public interface FoodRepository extends JpaRepository<Food,Long> {
 
 
-    List<Food> findTop5ByDescriptionContainingIgnoreCase(String desc);
+    List<Food> findTop5ByDescriptionContainingIgnoreCase(String description);
     Optional<Food> findByDescription(String desc);
 }
