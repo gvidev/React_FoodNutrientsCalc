@@ -3,6 +3,8 @@ import "./App.css";
 import SelectedFoodTable from "./components/SelectedFoodsTable";
 import SearchTable from "./components/SearchTable";
 import AddFoodButton from "./components/AddFoodButton";
+import NewFoodForm from "./components/NewFoodForm";
+import NewFoodModal from "./components/newFoodModal";
 
 function App() {
   // const [isFormOpen, setIsFormOpen] = useState(false);
@@ -34,13 +36,13 @@ function App() {
 
   return (
     <>
-      <SelectedFoodTable selectedFoods={selectedFoods}></SelectedFoodTable>
+      {/* <SelectedFoodTable selectedFoods={selectedFoods}></SelectedFoodTable>
       <br></br>
       <br></br>
 
       <SearchTable getClickedFood={handleDerivedFood}></SearchTable>
-      <AddFoodButton onClick={() => {}}></AddFoodButton>
-      <div className="card"></div>
+      <AddFoodButton onClick={() => {}}></AddFoodButton> */}
+      <NewFoodForm></NewFoodForm>
     </>
   );
 }
