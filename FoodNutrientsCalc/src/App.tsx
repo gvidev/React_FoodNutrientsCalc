@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import SelectedFoodTable from "./components/SelectedFoodsTable";
 import SearchTable from "./components/SearchTable";
+import AddFoodButton from "./components/AddFoodButton";
 
 function App() {
   // const [isFormOpen, setIsFormOpen] = useState(false);
@@ -36,9 +37,9 @@ function App() {
       <SelectedFoodTable selectedFoods={selectedFoods}></SelectedFoodTable>
       <br></br>
       <br></br>
-      {/* <AddFoodButton onClicked={handleAddFoodButton}></AddFoodButton>
-      {isFormOpen && <NewFoodModal></NewFoodModal>} */}
+
       <SearchTable getClickedFood={handleDerivedFood}></SearchTable>
+      <AddFoodButton onClick={() => {}}></AddFoodButton>
       <div className="card"></div>
     </>
   );

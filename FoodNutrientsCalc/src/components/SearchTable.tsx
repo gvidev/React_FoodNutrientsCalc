@@ -17,22 +17,35 @@ interface SearchTableProps {
   foodElement: {
     id: number;
     description: String;
-    calories: Number;
-    proteins: Number;
-    fats: Number;
-    carbohydrates: Number;
+    calories: number;
+    proteins: number;
+    fats: number;
+    carbohydrates: number;
   };
 
   getClickedFood: (data: Object) => void;
 }
 
 const SearchTable = ({ getClickedFood, foodElement }: SearchTableProps) => {
-  const [query, setQuery] = useState(String);
+  const [query, setQuery] = useState("empty");
+  const [searchError, setSearchError] = useState("");
+  const [searchText, setSearchText] = useState(String);
   const [searchedFoods, setSearchedFoods] = useState(Array<typeof foodElement>);
+  const specialChars = /[$&+:;=?@#|'<>.-^*(){}%!"]/;
 
   const handleInputChange = (evt: any) => {
-    console.log(evt.target.value);
-    setQuery(evt.target.value);
+    let text = evt.target.value;
+    let length = evt.target.textLength;
+
+    if (!specialChars.test(text)) {
+      setSearchText(text);
+      setSearchError("");
+      if (length >= 2) {
+        setQuery(text);
+      }
+    } else {
+      setSearchError("Invalid symbol " + text[text.length - 1] + "");
+    }
   };
 
   useEffect(() => {
@@ -51,6 +64,7 @@ const SearchTable = ({ getClickedFood, foodElement }: SearchTableProps) => {
 
   return (
     <>
+      {searchError != "" && <h3 className="ui red header">{searchError}</h3>}
       <table className={"ui large selectable  table"}>
         <thead>
           <tr>
@@ -59,7 +73,7 @@ const SearchTable = ({ getClickedFood, foodElement }: SearchTableProps) => {
                 <input
                   type="text"
                   placeholder="Search foods..."
-                  value={query}
+                  value={searchText}
                   onChange={handleInputChange}
                 ></input>
                 <i className="circular search link icon"></i>

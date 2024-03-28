@@ -23,9 +23,9 @@ const SelectedFoodTable = ({ selectedFoods }: SelectedFoodsProps) => {
 
   const handleColor = (totalFat: number, count: number) => {
     let temp = totalFat / (count * 100);
-    if (temp <= 0.35) {
+    if (temp <= 0.25) {
       setColor("green");
-    } else if (temp <= 0.45) {
+    } else if (temp <= 0.35) {
       setColor("yellow");
     } else {
       setColor("red");
@@ -89,7 +89,7 @@ const SelectedFoodTable = ({ selectedFoods }: SelectedFoodsProps) => {
         </tbody>
         <tfoot>
           <tr>
-            <th>Total</th>
+            <th>Total:</th>
             <th className="right aligned">{totaKcal}</th>
             <th className="right aligned">{totalProtein}</th>
             <th className="right aligned">{totalFat}</th>
