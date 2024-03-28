@@ -1,24 +1,46 @@
-import React, { useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 
 const NewFoodForm = () => {
   const [fields, setFields] = useState({
     description: "",
     calories: "",
-    fat: "",
-    protein: "",
-    carbs: "",
+    fats: "",
+    proteins: "",
+    carbohydrates: "",
   });
-  const [description, setDescription] = useState(String);
-  const [calories, setCalories] = useState(Number);
-  const [proteins, setProteins] = useState(Number);
-  const [fats, setFats] = useState(Number);
-  const [carbs, setCarbs] = useState(Number);
+  const [onError, setOnError] = useState(String);
+  const [onSuccess, setOnSuccess] = useState(String);
 
   const handleInput = (evt: any) => {
     const updFields = Object.assign({}, fields);
     updFields[evt.target.name] = evt.target.value;
     setFields(updFields);
-    console.log(updFields);
+  };
+
+  const onFormSubmit = (evt: any) => {
+    setOnError("");
+    setOnSuccess("");
+    evt.preventDefault();
+
+    const fetchData = async () => {
+      try {
+        const { data: response } = await axios({
+          method: "post",
+          url: "http://localhost:8080/api/foods",
+          data: fields,
+          headers: { "Content-Type": "application/json" },
+        });
+        setOnSuccess("Successfully added new food!");
+        console.log(response);
+      } catch (error: any) {
+        setOnError(
+          "Already has a food with description: " + fields.description
+        );
+        console.error(error.message);
+      }
+    };
+    fetchData();
   };
 
   return (
@@ -27,7 +49,7 @@ const NewFoodForm = () => {
         New Food Nutrients
       </h1>
       <div className="ui green inverted segment">
-        <form className="ui huge inverted form">
+        <form className="ui huge inverted form" onSubmit={onFormSubmit}>
           <div className="field">
             <div className="ui labeled input">
               <div className="ui olive label">Desc</div>
@@ -59,7 +81,7 @@ const NewFoodForm = () => {
               <input
                 type="number"
                 step="0.01"
-                name="fat"
+                name="fats"
                 placeholder="Enter fat..."
                 required
                 onChange={handleInput}
@@ -72,7 +94,7 @@ const NewFoodForm = () => {
               <input
                 type="number"
                 step="0.01"
-                name="protein"
+                name="proteins"
                 placeholder="Enter protein..."
                 required
                 onChange={handleInput}
@@ -85,7 +107,7 @@ const NewFoodForm = () => {
               <input
                 type="number"
                 step="0.01"
-                name="carbs"
+                name="carbohydrates"
                 placeholder="Enter carbohydrates..."
                 required
                 onChange={handleInput}
@@ -103,6 +125,12 @@ const NewFoodForm = () => {
           </div>
         </form>
       </div>
+      {onError.length > 0 && (
+        <label className="ui red big label">{onError}</label>
+      )}
+      {onSuccess.length > 0 && (
+        <label className="ui green big label">{onSuccess}</label>
+      )}
     </>
   );
 };

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import SelectedFoodTable from "./components/SelectedFoodsTable";
-import SearchTable from "./components/SearchTable";
-import AddFoodButton from "./components/AddFoodButton";
+// import SelectedFoodTable from "./components/SelectedFoodsTable";
+// import SearchTable from "./components/SearchTable";
+// import AddFoodButton from "./components/AddFoodButton";
+
+// import NewFoodModal from "./components/newFoodModal";
 import NewFoodForm from "./components/NewFoodForm";
-import NewFoodModal from "./components/newFoodModal";
 
 function App() {
   // const [isFormOpen, setIsFormOpen] = useState(false);
