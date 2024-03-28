@@ -31,7 +31,7 @@ const SearchTable = ({ getClickedFood, foodElement }: SearchTableProps) => {
   const [searchError, setSearchError] = useState("");
   const [searchText, setSearchText] = useState(String);
   const [searchedFoods, setSearchedFoods] = useState(Array<typeof foodElement>);
-  const specialChars = /[$&+:;=?@#|'<>.-^*(){}%!"]/;
+  const specialChars = /[~`$&+:;=?@#|'<>.-^*(){}%!"]/;
 
   const handleInputChange = (evt: any) => {
     let text = evt.target.value;
