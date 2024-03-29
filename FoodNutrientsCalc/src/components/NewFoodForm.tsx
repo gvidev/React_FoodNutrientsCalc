@@ -119,7 +119,11 @@ const NewFoodForm = () => {
             <button className="ui inverted olive big button" type="submit">
               Submit
             </button>
-            <button className="ui inverted red big button " type="button">
+            <button
+              className="ui inverted red big button "
+              type="button"
+              onClick={() => window.history.back()}
+            >
               Go Back
             </button>
           </div>

@@ -1,10 +1,9 @@
 import { useState } from "react";
 import "./App.css";
-// import SelectedFoodTable from "./components/SelectedFoodsTable";
-// import SearchTable from "./components/SearchTable";
-// import AddFoodButton from "./components/AddFoodButton";
-
-// import NewFoodModal from "./components/newFoodModal";
+import SelectedFoodTable from "./components/SelectedFoodsTable";
+import SearchTable from "./components/SearchTable";
+import AddFoodButton from "./components/AddFoodButton";
+import { Routes, Route } from "react-router-dom";
 import NewFoodForm from "./components/NewFoodForm";
 
 function App() {
@@ -37,13 +36,16 @@ function App() {
 
   return (
     <>
-      {/* <SelectedFoodTable selectedFoods={selectedFoods}></SelectedFoodTable>
+      <SelectedFoodTable selectedFoods={selectedFoods}></SelectedFoodTable>
       <br></br>
       <br></br>
 
       <SearchTable getClickedFood={handleDerivedFood}></SearchTable>
-      <AddFoodButton onClick={() => {}}></AddFoodButton> */}
-      <NewFoodForm></NewFoodForm>
+      <AddFoodButton
+        onClick={() => {
+          window.location.href = "http://localhost:5173/create";
+        }}
+      ></AddFoodButton>
     </>
   );
 }
