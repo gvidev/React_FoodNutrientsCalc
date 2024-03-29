@@ -40,7 +40,7 @@ const SearchTable = ({ getClickedFood, foodElement }: SearchTableProps) => {
     if (!specialChars.test(text)) {
       setSearchText(text);
       setSearchError("");
-      if (length >= 2) {
+      if (length >= 3) {
         setQuery(text);
       }
     } else {

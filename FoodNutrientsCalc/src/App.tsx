@@ -1,10 +1,8 @@
-import { useState } from "react";
 import "./App.css";
 import SelectedFoodTable from "./components/SelectedFoodsTable";
 import SearchTable from "./components/SearchTable";
 import AddFoodButton from "./components/AddFoodButton";
-import { Routes, Route } from "react-router-dom";
-import NewFoodForm from "./components/NewFoodForm";
+import { useGlobalContext } from "./components/GlobalContext";
 
 function App() {
   // const [isFormOpen, setIsFormOpen] = useState(false);
@@ -16,8 +14,7 @@ function App() {
     fats: Number,
     carbohydrates: Number,
   };
-
-  const [selectedFoods, setSelectedFoods] = useState(Array<typeof foodElement>);
+  const { selectedFoods, setSelectedFoods } = useGlobalContext();
 
   function handleDerivedFood(data: typeof foodElement) {
     let isAlreadyAdded = false;
@@ -38,14 +35,8 @@ function App() {
     <>
       <SelectedFoodTable selectedFoods={selectedFoods}></SelectedFoodTable>
       <br></br>
-      <br></br>
-
       <SearchTable getClickedFood={handleDerivedFood}></SearchTable>
-      <AddFoodButton
-        onClick={() => {
-          window.location.href = "http://localhost:5173/create";
-        }}
-      ></AddFoodButton>
+      <AddFoodButton></AddFoodButton>
     </>
   );
 }

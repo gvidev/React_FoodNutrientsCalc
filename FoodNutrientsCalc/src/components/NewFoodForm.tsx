@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NewFoodForm = () => {
   const [fields, setFields] = useState({
@@ -119,13 +120,9 @@ const NewFoodForm = () => {
             <button className="ui inverted olive big button" type="submit">
               Submit
             </button>
-            <button
-              className="ui inverted red big button "
-              type="button"
-              onClick={() => window.history.back()}
-            >
+            <Link className="ui inverted red big button " type="button" to="/">
               Go Back
-            </button>
+            </Link>
           </div>
         </form>
       </div>
